@@ -13,6 +13,10 @@ rm $SRC/Plone-*.tgz
 $SRC/Plone-*/install.sh --target=$DEST --password=$ADMIN_PASS zeo
 unset HTTP_PROXY
 
+mv $SRC/Plone-*/init_scripts/ubuntu/plone-cluster /etc/init.d/plone
+sed -i 's|clusterpath=.*|clusterpath="/usr/local/share/plone/zeocluster"|' /etc/init.d/plone
+chmod +x /etc/init.d/plone
+
 rm -rf $SRC/Plone-*
 
 # make plone clients listen on localhost (we proxy through via apache)
